@@ -48,12 +48,13 @@ class Database {
                                 $this.db.run(['INSERT INTO Feedbag (ID, Name, GroupID, BuddyID, ClassID, Attributes) VALUES (?, ?, ?, ?, ?, ?)'].join(''), id, 'Family', 2, 0, 1, '', function () {
                                     // Co-Workers group.
                                     $this.db.run(['INSERT INTO Feedbag (ID, Name, GroupID, BuddyID, ClassID, Attributes) VALUES (?, ?, ?, ?, ?, ?)'].join(''), id, 'Co-Workers', 3, 0, 1, '', function () {
+                                        let timestamp = Math.round(new Date().getTime() / 1000);
                                         // Update user.
-                                        $this.db.run(['UPDATE Memberships SET [FeedbagTimestamp] = ?, [FeedbagItems] = 5 WHERE [ID] = ?'].join(''), Math.round(new Date().getTime() / 1000), id, function () {
+                                        $this.db.run(['UPDATE Memberships SET [FeedbagTimestamp] = ?, [FeedbagItems] = 5 WHERE [ID] = ?'].join(''), timestamp, id, function () {
                                             // reload
                                             $this.db.each(['SELECT * FROM Feedbag WHERE [ID] = ?'].join(''), id, function (err, row) {
                                                 rows.push({ PID: row.PID, ID: row.ID, Name: row.Name, GroupID: row.GroupID, BuddyID: row.BuddyID, ClassID: row.ClassID, Attributes: row.Attributes });
-                                            }, function () { resolve(rows); });
+                                            }, function () { resolve({ timestamp: timestamp, rows: rows}); });
                                         });
                                     });
                                 });
