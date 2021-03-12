@@ -11,10 +11,7 @@ module.exports = class User {
         var b = await db.getMembership(screenName);
         extend(this, b);
         var c = await db.getBuddyList(this.ID);
-        if (c.timestamp) {
-          this.FeedbagTimestamp = c.timestamp;
-          this.buddyList = c.rows;
-        }
+        c.timestamp ? (this.FeedbagTimestamp = c.timestamp) && (this.buddyList = c.rows) : this.buddyList = c;
     }
     async updateStatus(session, sessionManager, sendDataCallback) {
         var $this = this;
