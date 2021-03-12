@@ -47,6 +47,7 @@ let auth = Net.createServer(function (socket) {
     // always send a channel 1 flap version packet on connect.
     SendData(session, 0, 1, Util.Constants._FLAP_VERSION);
 });
+
 // initiate listen on auth socket server.
 auth.listen(options.authPort, options.ip);
 console.log('Auth socket listening on port', options.authPort);
@@ -87,6 +88,8 @@ let bos = Net.createServer(function (socket) {
     // always send a channel 1 flap version packet on connect.
     SendData(session, 0, 1, Util.Constants._FLAP_VERSION);
 });
+
+// initiate listen on bos socket server.
 bos.listen(options.bosPort, options.ip);
 console.log('BOS socket listening on port', options.bosPort);
 
