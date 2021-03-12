@@ -89,7 +89,7 @@ let bos = Net.createServer(function (socket) {
     SendData(session, 0, 1, Util.Constants._FLAP_VERSION);
 });
 
-// initiate listen on bos socket server
+// initiate listen on bos socket server.
 bos.listen(options.bosPort, options.ip);
 console.log('BOS socket listening on port', options.bosPort);
 
